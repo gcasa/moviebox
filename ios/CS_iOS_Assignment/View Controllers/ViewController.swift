@@ -10,29 +10,30 @@ import UIKit
 class ViewController: UIViewController,UITableViewDataSource {
     
     var jsonArray: [Any] = []
-    var configArray: [Any] = []
+    var configDict: [String : Any] = [:]
     
     let movieService = MovieService()
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func fetchMovies() {
         movieService.fetchMovies { jsonArray in
             if let jsonArray = jsonArray {
                 self.jsonArray = jsonArray
                 self.moviesTableView.reloadData()
             }
         }
-        
-        /*
-        movieService.fetchConfiguration { configArray in
-            if let configArray = configArray {
-                self.configArray = configArray
-                NSLog("%@", configArray)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        movieService.fetchConfiguration { configDict in
+            if let configDict = configDict {
+                self.configDict = configDict
+                self.fetchMovies()
             }
-        } */
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +43,7 @@ class ViewController: UIViewController,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:MovieCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",
                                                            for: indexPath) as! MovieCell
-        cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String: Any])
+        cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String : Any])
         return cell
     }
 }

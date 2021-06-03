@@ -13,7 +13,9 @@ class MovieService {
     let configUrl = "https://api.themoviedb.org/3/configuration?language=en-US&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
 
     let defaultSession = URLSession(configuration: .default)
+    let configurationSession = URLSession(configuration: .default)
     
+    var configDataTask: URLSessionDataTask?
     var dataTask: URLSessionDataTask?
     var errorMessage = ""
         
@@ -54,14 +56,14 @@ class MovieService {
         dataTask?.resume()
     }
     
-    func fetchConfiguration(completion: @escaping ([Any]?) -> Void) {
-        dataTask?.cancel()
+    func fetchConfiguration(completion: @escaping ([String: Any]?) -> Void) {
+        configDataTask?.cancel()
         
-        guard let url = URL(string: configUrl) else {
+        guard let url = URL(string: movieUrl) else {
             return
         }
         
-        dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
+        configDataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
             defer {
                 self?.dataTask = nil
             }
@@ -78,16 +80,12 @@ class MovieService {
                     return
                 }
                 
-                guard let array = response!["results"] as? [Any] else {
-                    return
-                }
-                
                 DispatchQueue.main.async {
-                    completion(array)
+                    completion(response)
                 }
             }
         }
         
-        dataTask?.resume()
+        configDataTask?.resume()
     }
 }
