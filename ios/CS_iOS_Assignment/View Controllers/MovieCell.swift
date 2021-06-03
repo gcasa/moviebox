@@ -26,7 +26,10 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak var poster: UIImageView!
     
     func configure(movieDictionary: [String: Any]) {
-        title.text = movieDictionary["title"] as! String
-        releaseDate.text = movieDictionary["release_date"] as! String
+        var posterPath : String
+        title.text = (movieDictionary["title"] as! String)
+        releaseDate.text = (movieDictionary["release_date"] as! String)
+        posterPath = (movieDictionary["poster_path"]) as! String
+        NSLog("%@", posterPath)
     }
 }

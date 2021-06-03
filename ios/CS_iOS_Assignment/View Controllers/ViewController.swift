@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController,UITableViewDataSource {
     
     var jsonArray: [Any] = []
+    var configArray: [Any] = []
     
     let movieService = MovieService()
     
@@ -24,6 +25,14 @@ class ViewController: UIViewController,UITableViewDataSource {
                 self.moviesTableView.reloadData()
             }
         }
+        
+        /*
+        movieService.fetchConfiguration { configArray in
+            if let configArray = configArray {
+                self.configArray = configArray
+                NSLog("%@", configArray)
+            }
+        } */
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
