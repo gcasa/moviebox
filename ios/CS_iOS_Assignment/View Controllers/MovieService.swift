@@ -13,12 +13,21 @@ class MovieService {
     let configUrl = "https://api.themoviedb.org/3/configuration?language=en-US&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
 
     let defaultSession = URLSession(configuration: .default)
-    let configurationSession = URLSession(configuration: .default)
-    
-    var configDataTask: URLSessionDataTask?
     var dataTask: URLSessionDataTask?
     var errorMessage = ""
-        
+    var config: [String: Any] = [:]
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+
     func fetchMovies(completion: @escaping ([Any]?) -> Void) {
         dataTask?.cancel()
         
@@ -56,36 +65,16 @@ class MovieService {
         dataTask?.resume()
     }
     
-    func fetchConfiguration(completion: @escaping ([String: Any]?) -> Void) {
-        configDataTask?.cancel()
+    func fetchConfiguration(completion: () -> Void) {
+        let url = URL(string:configUrl)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         
-        guard let url = URL(string: movieUrl) else {
-            return
+        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {(response, data, error) in
+            guard let data = data else { return }
+            self.config = self.convertToDictionary(text: String(data: data, encoding: .utf8)!)!
         }
         
-        configDataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
-            defer {
-                self?.dataTask = nil
-            }
-            
-            if let error = error {
-                self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
-            } else if let data = data {
-                
-                var response: [String: Any]?
-                
-                do {
-                    response = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                } catch _ as NSError {
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    completion(response)
-                }
-            }
-        }
-        
-        configDataTask?.resume()
+        completion()
     }
 }

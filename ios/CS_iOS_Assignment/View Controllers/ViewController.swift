@@ -16,22 +16,15 @@ class ViewController: UIViewController,UITableViewDataSource {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-    func fetchMovies() {
-        movieService.fetchMovies { jsonArray in
-            if let jsonArray = jsonArray {
-                self.jsonArray = jsonArray
-                self.moviesTableView.reloadData()
-            }
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        movieService.fetchConfiguration { configDict in
-            if let configDict = configDict {
-                self.configDict = configDict
-                self.fetchMovies()
+        
+        movieService.fetchConfiguration {
+            movieService.fetchMovies { jsonArray in
+                if let jsonArray = jsonArray {
+                    self.jsonArray = jsonArray
+                    self.moviesTableView.reloadData()
+                }
             }
         }
     }
