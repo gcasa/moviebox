@@ -14,10 +14,9 @@ class MovieService {
     let configUrl = "https://api.themoviedb.org/3/configuration?language=en-US&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
 
     let defaultSession = URLSession(configuration: .default)
-    var dataTask: URLSessionDataTask?
-    // var imageTask: URLSessionDataTask?
     var errorMessage = ""
     var config: [String: Any] = [:]
+    var imageCache: [String : Data] = [:]
     
     func convertToDictionary(text: String) -> [String: Any] {
         if let data = text.data(using: .utf8) {
@@ -31,21 +30,16 @@ class MovieService {
     }
 
     func fetchMovies(completion: @escaping ([Any]?) -> Void) {
-        dataTask?.cancel()
+        // dataTask?.cancel()
         
         guard let url = URL(string: movieUrl) else {
             return
         }
         
-        dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
-            defer {
-                self?.dataTask = nil
-            }
-            
+        let dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
             if let error = error {
                 self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
             } else if let data = data {
-                
                 var response: [String: Any]?
                 
                 do {
@@ -64,12 +58,51 @@ class MovieService {
             }
         }
         
-        dataTask?.resume()
+        dataTask.resume()
     }
     
+    func fetchDetail(movieid: String, completion: @escaping ([Any]?) -> Void) {
+        let detailsUrl = "https://api.themoviedb.org/3/movie/\(movieid)?api_key=55957fcf3ba81b137f8fc01ac5a31fb5&language=en-US"
+        guard let url = URL(string: detailsUrl) else {
+            return
+        }
+        
+        let dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
+            if let error = error {
+                self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
+            } else if let data = data {
+                var response: [String: Any]?
+                
+                do {
+                    response = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                } catch _ as NSError {
+                    return
+                }
+                
+                guard let array = response!["results"] as? [Any] else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(array)
+                }
+            }
+        }
+        
+        dataTask.resume()
+    }
+        
     func fetchImage(view: UIImageView, path: String) {
         guard let url = URL(string: path) else {
             return
+        }
+        
+        let data = imageCache[path]
+        if (data != nil)
+        {
+            DispatchQueue.main.async {
+                view.image = UIImage(data: data!)
+            }
         }
         
         let imageTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
@@ -77,6 +110,8 @@ class MovieService {
                 self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
             } else if let data = data {
                 let image: UIImage  = UIImage(data: data)!
+                
+                self?.imageCache[path] = data
                 DispatchQueue.main.async{
                     view.image = image
                 }
