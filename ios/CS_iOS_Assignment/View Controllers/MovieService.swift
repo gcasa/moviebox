@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class MovieService {
     
@@ -14,18 +15,19 @@ class MovieService {
 
     let defaultSession = URLSession(configuration: .default)
     var dataTask: URLSessionDataTask?
+    var imageTask: URLSessionDataTask?
     var errorMessage = ""
     var config: [String: Any] = [:]
     
-    func convertToDictionary(text: String) -> [String: Any]? {
+    func convertToDictionary(text: String) -> [String: Any] {
         if let data = text.data(using: .utf8) {
             do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                return try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
             } catch {
                 print(error.localizedDescription)
             }
         }
-        return nil
+        return [:]
     }
 
     func fetchMovies(completion: @escaping ([Any]?) -> Void) {
@@ -65,16 +67,57 @@ class MovieService {
         dataTask?.resume()
     }
     
-    func fetchConfiguration(completion: () -> Void) {
-        let url = URL(string:configUrl)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+    func fetchImage(view: UIImageView, path: String) {
+        imageTask?.cancel()
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {(response, data, error) in
-            guard let data = data else { return }
-            self.config = self.convertToDictionary(text: String(data: data, encoding: .utf8)!)!
+        guard let url = URL(string: path) else {
+            return
         }
         
+        imageTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
+            defer {
+                self?.dataTask = nil
+            }
+            
+            if let error = error {
+                self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
+            } else if let data = data {
+                
+                let image: UIImage  = UIImage(data: data)!
+                DispatchQueue.main.async{
+                    view.image = image
+                }
+            }
+        }
+        
+        imageTask?.resume()
+    }
+        
+    func fetchConfiguration(completion: () -> Void) {
+        let url = URL(string: configUrl)
+        let semaphore = DispatchSemaphore(value: 0)
+                
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            self.config = self.convertToDictionary(text: String(data: data!, encoding: .utf8)!)
+            semaphore.signal()
+        }
+        
+        task.resume()
+        semaphore.wait()
         completion()
+    }
+    
+    func baseUrl() -> String
+    {
+        let dict = self.config["images"] as! [String : Any]
+        let value = dict["base_url"] as! String
+        return value
+    }
+    
+    func poster_sizes() -> [String]
+    {
+        let dict = self.config["images"] as! [String : Any]
+        let value = dict["poster_sizes"] as! [String]
+        return value
     }
 }

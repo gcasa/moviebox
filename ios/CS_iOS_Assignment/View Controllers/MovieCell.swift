@@ -25,11 +25,21 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var poster: UIImageView!
     
-    func configure(movieDictionary: [String: Any]) {
+    func fetchImage(view: UIImageView, path: String)
+    {
+        
+    }
+    
+    func configure(movieDictionary: [String: Any], baseUrl: String, service: MovieService)
+    {
         var posterPath : String
+        var imagePath : String
         title.text = (movieDictionary["title"] as! String)
         releaseDate.text = (movieDictionary["release_date"] as! String)
         posterPath = (movieDictionary["poster_path"]) as! String
-        NSLog("%@", posterPath)
+        imagePath = "\(baseUrl)original\(posterPath)"
+        NSLog("%@", imagePath)
+        
+        service.fetchImage(view: poster, path: imagePath)
     }
 }

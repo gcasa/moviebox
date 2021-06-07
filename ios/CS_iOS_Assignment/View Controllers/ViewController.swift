@@ -36,7 +36,8 @@ class ViewController: UIViewController,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:MovieCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",
                                                            for: indexPath) as! MovieCell
-        cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String : Any])
+        
+        cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String : Any], baseUrl: movieService.baseUrl(), service: movieService)
         return cell
     }
 }
