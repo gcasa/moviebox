@@ -15,7 +15,7 @@ class MovieService {
 
     let defaultSession = URLSession(configuration: .default)
     var dataTask: URLSessionDataTask?
-    var imageTask: URLSessionDataTask?
+    // var imageTask: URLSessionDataTask?
     var errorMessage = ""
     var config: [String: Any] = [:]
     
@@ -68,21 +68,14 @@ class MovieService {
     }
     
     func fetchImage(view: UIImageView, path: String) {
-        imageTask?.cancel()
-        
         guard let url = URL(string: path) else {
             return
         }
         
-        imageTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
-            defer {
-                self?.dataTask = nil
-            }
-            
+        let imageTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
             if let error = error {
                 self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
             } else if let data = data {
-                
                 let image: UIImage  = UIImage(data: data)!
                 DispatchQueue.main.async{
                     view.image = image
@@ -90,7 +83,7 @@ class MovieService {
             }
         }
         
-        imageTask?.resume()
+        imageTask.resume()
     }
         
     func fetchConfiguration(completion: () -> Void) {
