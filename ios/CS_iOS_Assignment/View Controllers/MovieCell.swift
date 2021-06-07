@@ -20,6 +20,7 @@ class MovieCell: UITableViewCell {
     //
     // MARK: - IBOutlets
     //
+    var movieId : Int!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var rating: RatingView!
     @IBOutlet weak var releaseDate: UILabel!
@@ -27,12 +28,13 @@ class MovieCell: UITableViewCell {
     
     func configure(movieDictionary: [String: Any], baseUrl: String, service: MovieService)
     {
-        var posterPath : String
-        var imagePath : String
+        let posterPath : String = (movieDictionary["poster_path"]) as! String
+        let imagePath : String = "\(baseUrl)w300\(posterPath)"
+        
         title.text = (movieDictionary["title"] as! String)
         releaseDate.text = (movieDictionary["release_date"] as! String)
-        posterPath = (movieDictionary["poster_path"]) as! String
-        imagePath = "\(baseUrl)w300\(posterPath)"
+        movieId = (movieDictionary["id"] as! Int)
+        
         service.fetchImage(view: poster, path: imagePath)
     }
 }

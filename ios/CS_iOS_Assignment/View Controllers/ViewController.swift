@@ -7,12 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDataSource {
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     var jsonArray: [Any] = []
     var configDict: [String : Any] = [:]
     
-    let movieService = MovieService()
+    @IBOutlet weak var tableView: UITableView!
+    let movieService = MovieService.sharedMovieService
     
     @IBOutlet weak var moviesTableView: UITableView!
     
@@ -39,5 +40,17 @@ class ViewController: UIViewController,UITableViewDataSource {
         
         cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String : Any], baseUrl: movieService.baseUrl(), service: movieService)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "MovieDetail", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller : DetailViewController = segue.destination as! DetailViewController
+        let indexPath = self.tableView.indexPathForSelectedRow
+        let cell = tableView.cellForRow(at: indexPath!) as! MovieCell
+        
+        controller.movieId = cell.movieId
     }
 }

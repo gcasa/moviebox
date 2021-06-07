@@ -10,6 +10,8 @@ import UIKit
 
 class MovieService {
     
+    static let sharedMovieService = MovieService()
+    
     let movieUrl = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=undefined&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
     let configUrl = "https://api.themoviedb.org/3/configuration?language=en-US&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
 
@@ -30,8 +32,6 @@ class MovieService {
     }
 
     func fetchMovies(completion: @escaping ([Any]?) -> Void) {
-        // dataTask?.cancel()
-        
         guard let url = URL(string: movieUrl) else {
             return
         }
@@ -61,7 +61,7 @@ class MovieService {
         dataTask.resume()
     }
     
-    func fetchDetail(movieid: String, completion: @escaping ([Any]?) -> Void) {
+    func fetchDetail(movieid: Int, completion: @escaping ([String:Any]?) -> Void) {
         let detailsUrl = "https://api.themoviedb.org/3/movie/\(movieid)?api_key=55957fcf3ba81b137f8fc01ac5a31fb5&language=en-US"
         guard let url = URL(string: detailsUrl) else {
             return
@@ -79,12 +79,8 @@ class MovieService {
                     return
                 }
                 
-                guard let array = response!["results"] as? [Any] else {
-                    return
-                }
-                
                 DispatchQueue.main.async {
-                    completion(array)
+                    completion(response)
                 }
             }
         }

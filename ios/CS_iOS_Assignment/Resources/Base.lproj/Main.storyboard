@@ -73,12 +73,12 @@
                                             <outlet property="rating" destination="RAL-DS-n23" id="w9S-JH-V8J"/>
                                             <outlet property="releaseDate" destination="dkQ-78-m5p" id="joR-iN-Svm"/>
                                             <outlet property="title" destination="T22-1m-QSk" id="FJO-Lk-N4c"/>
-                                            <segue destination="lFd-bS-1Tl" kind="showDetail" id="D4W-mD-zNC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="ujk-a2-xd3"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="0v3-OF-1ay"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -94,11 +94,13 @@
                     <navigationItem key="navigationItem" title="Movies" id="Ncc-aH-tpW"/>
                     <connections>
                         <outlet property="moviesTableView" destination="v0k-pE-qpw" id="4W8-be-ZRD"/>
+                        <outlet property="tableView" destination="v0k-pE-qpw" id="c7D-XF-pR5"/>
+                        <segue destination="lFd-bS-1Tl" kind="showDetail" identifier="MovieDetail" id="9XJ-WT-1ji"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+            <point key="canvasLocation" x="1109" y="138"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="4C9-A4-7xQ">
