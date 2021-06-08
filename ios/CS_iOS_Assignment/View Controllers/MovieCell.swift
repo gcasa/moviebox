@@ -32,7 +32,7 @@ class MovieCell: UITableViewCell {
         let imagePath : String = "\(baseUrl)w300\(posterPath)"
         let r = (movieDictionary["vote_average"]) as! Double
         
-        rating.color = UIColor.green
+        // rating.color = UIColor.green
         rating.value = CGFloat(r / 10.0) 
         title.text = (movieDictionary["title"] as! String)
         releaseDate.text = (movieDictionary["release_date"] as! String)
