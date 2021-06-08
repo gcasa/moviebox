@@ -14,7 +14,7 @@ class MovieService {
     
     let movieUrl = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=undefined&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
     let configUrl = "https://api.themoviedb.org/3/configuration?language=en-US&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
-
+    let mostPopularUrl = "https://api.themoviedb.org/3/movie/popular?api_key=55957fcf3ba81b137f8fc01ac5a31fb5&language=en-US&page=1"
     let defaultSession = URLSession(configuration: .default)
     var errorMessage = ""
     var config: [String: Any] = [:]
@@ -50,6 +50,36 @@ class MovieService {
                 
                 guard let array = response!["results"] as? [Any] else {
                   return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(array)
+                }
+            }
+        }
+        
+        dataTask.resume()
+    }
+    
+    func fetchPopularMovies(completion: @escaping ([Any]?) -> Void) {
+        guard let url = URL(string: mostPopularUrl) else {
+            return
+        }
+        
+        let dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
+            if let error = error {
+                self?.errorMessage += "DataTask error: " + error.localizedDescription + "\n"
+            } else if let data = data {
+                var response: [String: Any]?
+                
+                do {
+                    response = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                } catch _ as NSError {
+                    return
+                }
+                
+                guard let array = response!["results"] as? [Any] else {
+                    return
                 }
                 
                 DispatchQueue.main.async {

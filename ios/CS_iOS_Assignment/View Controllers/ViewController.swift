@@ -7,12 +7,15 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
     
     var jsonArray: [Any] = []
+    var playingNowArray: [Any] = []
     var configDict: [String : Any] = [:]
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     let movieService = MovieService.sharedMovieService
     
     @IBOutlet weak var moviesTableView: UITableView!
@@ -21,20 +24,53 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         super.viewDidLoad()
         
         movieService.fetchConfiguration {
-            movieService.fetchMovies { jsonArray in
+            movieService.fetchPopularMovies { jsonArray in
                 if let jsonArray = jsonArray {
                     self.jsonArray = jsonArray
                     self.moviesTableView.reloadData()
                 }
             }
         }
+        
+        movieService.fetchMovies { playingNowArray in
+            if let playingNowArray = playingNowArray {
+                self.playingNowArray = playingNowArray
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    // tablvie delegate/datasource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.jsonArray.count
+        if (section == 0)
+        {
+            return 1
+        }
+        
+        return self.jsonArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 0)
+        {
+            return "Playing Now"
+        }
+        
+        return "Most Popular"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.section == 0)
+        {
+            let cell:MovieScrollCell = tableView.dequeueReusableCell(withIdentifier: "MovieScrollCell",
+                                                               for: indexPath) as! MovieScrollCell
+            return cell
+        }
+        
         let cell:MovieCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",
                                                            for: indexPath) as! MovieCell
         
@@ -47,11 +83,21 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         self.performSegue(withIdentifier: "MovieDetail", sender: self)
     }
     
+    // Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller : DetailViewController = segue.destination as! DetailViewController
         let indexPath = self.tableView.indexPathForSelectedRow
         let cell = tableView.cellForRow(at: indexPath!) as! MovieCell
         
         controller.movieId = cell.movieId
+    }
+    
+    // collectionview
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.playingNowArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
     }
 }
