@@ -95,7 +95,7 @@
                     <connections>
                         <outlet property="moviesTableView" destination="v0k-pE-qpw" id="4W8-be-ZRD"/>
                         <outlet property="tableView" destination="v0k-pE-qpw" id="c7D-XF-pR5"/>
-                        <segue destination="lFd-bS-1Tl" kind="showDetail" identifier="MovieDetail" id="9XJ-WT-1ji"/>
+                        <segue destination="lFd-bS-1Tl" kind="presentation" identifier="MovieDetail" modalPresentationStyle="overCurrentContext" id="9XJ-WT-1ji"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

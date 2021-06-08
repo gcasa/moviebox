@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.modalPresentationStyle = .overCurrentContext
         movieService.fetchDetail(movieid: movieId) { jsonDict in
             if let jsonDict = jsonDict {
                 let baseUrl : String = self.movieService.baseUrl()
