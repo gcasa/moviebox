@@ -39,6 +39,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
                                                            for: indexPath) as! MovieCell
         
         cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String : Any], baseUrl: movieService.baseUrl(), service: movieService)
+        
         return cell
     }
     

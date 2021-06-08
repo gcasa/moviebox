@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14B2BA3B266EA44B001D1007 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2BA3A266EA44B001D1007 /* DetailViewController.swift */; };
+		14B2BA3D266FC006001D1007 /* MovieScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2BA3C266FC006001D1007 /* MovieScrollCell.swift */; };
 		9223284123B1629C003FE091 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9223284023B1629C003FE091 /* MovieCell.swift */; };
 		92614F5E23BB59ED00815D18 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92614F5D23BB59ED00815D18 /* RatingView.swift */; };
 		92AAC01623B126A80069BD33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AAC01523B126A80069BD33 /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		14B2BA3A266EA44B001D1007 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		14B2BA3C266FC006001D1007 /* MovieScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieScrollCell.swift; sourceTree = "<group>"; };
 		9223284023B1629C003FE091 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		92614F5D23BB59ED00815D18 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		92AAC01223B126A80069BD33 /* CS_iOS_Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CS_iOS_Assignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 				92AAC01923B126A80069BD33 /* ViewController.swift */,
 				9223284023B1629C003FE091 /* MovieCell.swift */,
 				14B2BA3A266EA44B001D1007 /* DetailViewController.swift */,
+				14B2BA3C266FC006001D1007 /* MovieScrollCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				92AAC04D23B12F280069BD33 /* MovieService.swift in Sources */,
 				92614F5E23BB59ED00815D18 /* RatingView.swift in Sources */,
 				14B2BA3B266EA44B001D1007 /* DetailViewController.swift in Sources */,
+				14B2BA3D266FC006001D1007 /* MovieScrollCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

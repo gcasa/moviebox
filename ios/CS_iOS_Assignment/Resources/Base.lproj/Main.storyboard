@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" id="iEH-Fk-SRL" customClass="MovieCell" customModule="CS_iOS_Assignment" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieScrollCell" id="iEH-Fk-SRL" customClass="MovieCell" customModule="CS_iOS_Assignment" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iEH-Fk-SRL" id="Fpy-op-sp1">
@@ -73,6 +73,60 @@
                                             <outlet property="rating" destination="RAL-DS-n23" id="w9S-JH-V8J"/>
                                             <outlet property="releaseDate" destination="dkQ-78-m5p" id="joR-iN-Svm"/>
                                             <outlet property="title" destination="T22-1m-QSk" id="FJO-Lk-N4c"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" id="fMW-G4-7dt" customClass="MovieCell" customModule="CS_iOS_Assignment" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="124.5" width="414" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fMW-G4-7dt" id="MUS-UE-HN6">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nmb-kD-ytU">
+                                                    <rect key="frame" x="131" y="12.5" width="203" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uhc-cI-po9" customClass="RatingView" customModule="CS_iOS_Assignment" customModuleProvider="target">
+                                                    <rect key="frame" x="344" y="25" width="50" height="50"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="Rku-qK-oTv"/>
+                                                        <constraint firstAttribute="width" constant="50" id="Udb-q8-6DF"/>
+                                                    </constraints>
+                                                </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RwI-8d-rsZ">
+                                                    <rect key="frame" x="20" y="12.5" width="103" height="75"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="103" id="NT0-Uc-pfb"/>
+                                                        <constraint firstAttribute="height" constant="75" id="wb3-2S-lif"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11-1-2011" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHo-fu-h6S">
+                                                    <rect key="frame" x="131" y="40" width="73" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Uhc-cI-po9" firstAttribute="leading" secondItem="Nmb-kD-ytU" secondAttribute="trailing" constant="10" id="4TJ-Os-8oU"/>
+                                                <constraint firstItem="OHo-fu-h6S" firstAttribute="top" secondItem="Nmb-kD-ytU" secondAttribute="bottom" constant="8" id="5Ai-Qp-6Df"/>
+                                                <constraint firstItem="RwI-8d-rsZ" firstAttribute="centerY" secondItem="MUS-UE-HN6" secondAttribute="centerY" id="Alp-GG-dyz"/>
+                                                <constraint firstItem="Nmb-kD-ytU" firstAttribute="top" secondItem="RwI-8d-rsZ" secondAttribute="top" id="Odv-Rh-4jO"/>
+                                                <constraint firstItem="Uhc-cI-po9" firstAttribute="centerY" secondItem="MUS-UE-HN6" secondAttribute="centerY" id="OlS-mK-hyP"/>
+                                                <constraint firstItem="RwI-8d-rsZ" firstAttribute="leading" secondItem="MUS-UE-HN6" secondAttribute="leading" constant="20" id="Oom-HW-qD2"/>
+                                                <constraint firstItem="Nmb-kD-ytU" firstAttribute="leading" secondItem="RwI-8d-rsZ" secondAttribute="trailing" constant="8" id="YEM-g9-2fk"/>
+                                                <constraint firstAttribute="trailing" secondItem="Uhc-cI-po9" secondAttribute="trailing" constant="20" id="ihd-BH-7M4"/>
+                                                <constraint firstItem="OHo-fu-h6S" firstAttribute="leading" secondItem="RwI-8d-rsZ" secondAttribute="trailing" constant="8" id="jxm-qg-vT0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="poster" destination="RwI-8d-rsZ" id="zGJ-oV-Nkd"/>
+                                            <outlet property="rating" destination="Uhc-cI-po9" id="u0V-Sd-AU4"/>
+                                            <outlet property="releaseDate" destination="OHo-fu-h6S" id="Jh9-b2-0ha"/>
+                                            <outlet property="title" destination="Nmb-kD-ytU" id="UMM-3I-2wf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

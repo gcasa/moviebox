@@ -31,18 +31,14 @@ class RatingView: UIView {
     
     override func draw(_ rect: CGRect) {
         var color : UIColor!
-        
-        if (value >= 0.80)
+   
+        if (value > 0.50 && value <= 1.0)
         {
             color = UIColor.green
         }
-        if (value >= 0.60 && value < 0.80)
+        if (value <= 0.50)
         {
             color = UIColor.yellow
-        }
-        if (value < 0.60)
-        {
-            color = UIColor.red
         }
         
         // get current context

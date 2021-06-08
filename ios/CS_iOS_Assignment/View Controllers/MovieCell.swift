@@ -17,10 +17,11 @@ class MovieCell: UITableViewCell {
     //
     static let identifier = "MovieCell"
     
+    var movieId : Int!
+    
     //
     // MARK: - IBOutlets
     //
-    var movieId : Int!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var rating: RatingView!
     @IBOutlet weak var releaseDate: UILabel!
@@ -37,6 +38,14 @@ class MovieCell: UITableViewCell {
         title.text = (movieDictionary["title"] as! String)
         releaseDate.text = (movieDictionary["release_date"] as! String)
         movieId = (movieDictionary["id"] as! Int)
+        
+        title.textColor = UIColor.white
+        releaseDate.textColor = UIColor.white
+        self.backgroundColor = UIColor.black
+        
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.black
+        self.selectedBackgroundView = bgColorView
         
         service.fetchImage(view: poster, path: imagePath)
     }
