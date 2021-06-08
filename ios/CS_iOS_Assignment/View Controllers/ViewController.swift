@@ -7,10 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource {
-    
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var jsonArray: [Any] = []
-    var playingNowArray: [Any] = []
     var configDict: [String : Any] = [:]
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,13 +27,6 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
                     self.jsonArray = jsonArray
                     self.moviesTableView.reloadData()
                 }
-            }
-        }
-        
-        movieService.fetchMovies { playingNowArray in
-            if let playingNowArray = playingNowArray {
-                self.playingNowArray = playingNowArray
-                self.collectionView.reloadData()
             }
         }
     }
@@ -68,6 +59,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         {
             let cell:MovieScrollCell = tableView.dequeueReusableCell(withIdentifier: "MovieScrollCell",
                                                                for: indexPath) as! MovieScrollCell
+            cell.configure()
             return cell
         }
         
@@ -91,13 +83,5 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         controller.movieId = cell.movieId
     }
-    
-    // collectionview
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.playingNowArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
+
 }

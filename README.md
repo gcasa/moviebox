@@ -1,5 +1,5 @@
 # Mobile Assignment CS
-This is a placeholder README file with the instructions for the assingment. We expect you to build your own README file.
+This is a placeholder README file with the instructions for the assignment. We expect you to build your own README file.
 
 ## Delivering the code
 * Fork this repo and select the access level as PRIVATE. This is very important. **[Check how to do it here](https://docs.gitlab.com/ee////user/project/working_with_projects.html#fork-a-project)**
