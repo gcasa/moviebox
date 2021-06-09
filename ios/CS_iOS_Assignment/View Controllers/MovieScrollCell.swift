@@ -21,6 +21,7 @@ class MovieScrollCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
     
     func configure()
     {
+        self.backgroundColor = UIColor.black
         movieService.fetchMovies { playingNowArray in
             if let playingNowArray = playingNowArray {
                 self.playingNowArray = playingNowArray

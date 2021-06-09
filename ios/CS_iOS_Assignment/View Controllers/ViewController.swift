@@ -25,7 +25,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let titleView = UIImageView(image:titleImage)
         self.navigationItem.titleView = titleView
         self.navigationItem.titleView?.backgroundColor = UIColor.black
-        UIApplication.shared.statusBarStyle = .lightContent
         
         movieService.fetchConfiguration {
             movieService.fetchPopularMovies { jsonArray in
@@ -37,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    // tablvie delegate/datasource
+    // tableview delegate/datasource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -49,6 +48,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         return self.jsonArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0)
+        {
+            return 200.0
+        }
+        
+        return 100.0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -72,9 +80,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell:MovieCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",
                                                            for: indexPath) as! MovieCell
-        
         cell.configure(movieDictionary: jsonArray[indexPath.row] as! [String : Any], baseUrl: movieService.baseUrl(), service: movieService)
-        
         return cell
     }
     

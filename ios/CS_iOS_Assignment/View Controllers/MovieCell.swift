@@ -30,7 +30,7 @@ class MovieCell: UITableViewCell {
     func configure(movieDictionary: [String: Any], baseUrl: String, service: MovieService)
     {
         let posterPath : String = (movieDictionary["poster_path"]) as! String
-        let imagePath : String = "\(baseUrl)w300\(posterPath)"
+        let imagePath : String = "\(baseUrl)w92\(posterPath)"
         let r = (movieDictionary["vote_average"]) as! Double
         
         // rating.color = UIColor.green

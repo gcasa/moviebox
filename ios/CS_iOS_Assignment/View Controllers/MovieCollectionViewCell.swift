@@ -14,7 +14,7 @@ class MovieCollectionViewCell :UICollectionViewCell {
     func configure(movieDictionary: [String: Any], baseUrl: String, service: MovieService)
     {
         let posterPath : String = (movieDictionary["poster_path"]) as! String
-        let imagePath : String = "\(baseUrl)w300\(posterPath)"
-
+        let imagePath : String = "\(baseUrl)w92\(posterPath)"
+        self.backgroundColor = UIColor.black
         service.fetchImage(view: imageView, path: imagePath)
     }}
