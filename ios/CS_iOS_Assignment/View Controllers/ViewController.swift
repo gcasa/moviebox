@@ -21,6 +21,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let titleImage = UIImage(named:"Movie")
+        let titleView = UIImageView(image:titleImage)
+        self.navigationItem.titleView = titleView
+        self.navigationItem.titleView?.backgroundColor = UIColor.black
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         movieService.fetchConfiguration {
             movieService.fetchPopularMovies { jsonArray in
                 if let jsonArray = jsonArray {
@@ -60,6 +66,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let cell:MovieScrollCell = tableView.dequeueReusableCell(withIdentifier: "MovieScrollCell",
                                                                for: indexPath) as! MovieScrollCell
             cell.configure()
+            cell.backgroundColor = UIColor.black
             return cell
         }
         

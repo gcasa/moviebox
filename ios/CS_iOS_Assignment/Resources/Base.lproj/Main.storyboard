@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movies-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CS_iOS_Assignment" customModuleProvider="target" sceneMemberID="viewController">
@@ -140,7 +140,7 @@
                             <constraint firstItem="v0k-pE-qpw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jpR-W1-5Oo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" id="Ncc-aH-tpW"/>
+                    <navigationItem key="navigationItem" id="Ncc-aH-tpW"/>
                     <connections>
                         <outlet property="moviesTableView" destination="v0k-pE-qpw" id="4W8-be-ZRD"/>
                         <outlet property="tableView" destination="v0k-pE-qpw" id="c7D-XF-pR5"/>
