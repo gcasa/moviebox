@@ -17,3 +17,6 @@ The MovieService is the main place where all of the data gets retrieved.  When t
 
 ## Pagination
 The pagination code simply looks to see when the user has reached the end of the existing page of movies and adds the new one.  A smarter way of doing this would be to pre-load the first two pages and then keep ahead of the user by one or two pages as the user scrolls across page boundaries.  For the interest of time I didn't do the more advanced approach.
+
+## Third Party Libraries
+* None
