@@ -12,6 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var configDict: [String : Any] = [:]
     let movieService = MovieService.sharedMovieService
     var selectedMovieId : Int!
+    var currentPage = 1
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var moviesTableView: UITableView!
@@ -25,7 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationItem.titleView?.backgroundColor = UIColor.black
         
         movieService.fetchConfiguration {
-            movieService.fetchPopularMovies { jsonArray in
+            movieService.fetchPopularMovies(page: currentPage) { jsonArray in
                 if let jsonArray = jsonArray {
                     self.jsonArray = jsonArray
                     self.moviesTableView.reloadData()
@@ -97,5 +98,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func openDetailWith(movieId : Int) {
         selectedMovieId = movieId
         self.performSegue(withIdentifier: "MovieDetail", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == jsonArray.count {
+            currentPage += 1
+            movieService.fetchPopularMovies(page: currentPage) { mvArray in
+                if let newArray = mvArray {
+                    self.jsonArray = self.jsonArray + newArray
+                    self.moviesTableView.reloadData()
+                }
+            }
+        }
     }
 }

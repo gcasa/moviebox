@@ -14,7 +14,7 @@ class MovieService {
     
     let movieUrl = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=undefined&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
     let configUrl = "https://api.themoviedb.org/3/configuration?language=en-US&api_key=55957fcf3ba81b137f8fc01ac5a31fb5"
-    let mostPopularUrl = "https://api.themoviedb.org/3/movie/popular?api_key=55957fcf3ba81b137f8fc01ac5a31fb5&language=en-US&page=1"
+    let mostPopularUrl = "https://api.themoviedb.org/3/movie/popular?api_key=55957fcf3ba81b137f8fc01ac5a31fb5&language=en-US&page="
     let defaultSession = URLSession(configuration: .default)
     var errorMessage = ""
     var config: [String: Any] = [:]
@@ -61,8 +61,9 @@ class MovieService {
         dataTask.resume()
     }
     
-    func fetchPopularMovies(completion: @escaping ([Any]?) -> Void) {
-        guard let url = URL(string: mostPopularUrl) else {
+    func fetchPopularMovies(page: Int, completion: @escaping ([Any]?) -> Void) {
+        let mostPopularUrlPage = "\(mostPopularUrl)\(page)"
+        guard let url = URL(string: mostPopularUrlPage) else {
             return
         }
         

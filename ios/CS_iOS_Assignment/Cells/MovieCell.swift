@@ -36,7 +36,7 @@ class MovieCell: UITableViewCell {
         // rating.color = UIColor.green
         rating.value = CGFloat(r / 10.0) 
         title.text = (movieDictionary["title"] as! String)
-        releaseDate.text = (movieDictionary["release_date"] as! String)
+        releaseDate.text = (movieDictionary["release_date"] as? String)
         movieId = (movieDictionary["id"] as! Int)
         
         title.textColor = UIColor.white
