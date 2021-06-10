@@ -12,6 +12,7 @@ class MovieScrollCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
     let movieService = MovieService.sharedMovieService
     var playingNowArray: [Any] = []
 
+    @IBOutlet var controller : ViewController!
     @IBOutlet var collectionView : UICollectionView!
     
     //
@@ -42,5 +43,11 @@ class MovieScrollCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
         cell.configure(movieDictionary: playingNowArray[indexPath.row] as! [String : Any], baseUrl: movieService.baseUrl(), service: movieService)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movieDict = playingNowArray[indexPath.row] as! [String : Any]
+        let movieId = movieDict["id"] as! Int
+        controller.openDetailWith(movieId: movieId)
     }
 }

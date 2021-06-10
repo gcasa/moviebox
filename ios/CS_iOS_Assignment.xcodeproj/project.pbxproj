@@ -88,6 +88,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14B2BA422672863D001D1007 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				14B2BA3E266FDB32001D1007 /* MovieCollectionViewCell.swift */,
+				14B2BA3C266FC006001D1007 /* MovieScrollCell.swift */,
+				9223284023B1629C003FE091 /* MovieCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		14B2BA4326728664001D1007 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				92AAC04C23B12F280069BD33 /* MovieService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		92614F5C23BB59D100815D18 /* custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +137,8 @@
 		92AAC01423B126A80069BD33 /* CS_iOS_Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				14B2BA4326728664001D1007 /* Services */,
+				14B2BA422672863D001D1007 /* Cells */,
 				92614F5C23BB59D100815D18 /* custom */,
 				92AAC04523B12B2F0069BD33 /* View Controllers */,
 				92AAC04923B12E0B0069BD33 /* Resources */,
@@ -150,12 +170,8 @@
 		92AAC04523B12B2F0069BD33 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				92AAC04C23B12F280069BD33 /* MovieService.swift */,
 				92AAC01923B126A80069BD33 /* ViewController.swift */,
-				9223284023B1629C003FE091 /* MovieCell.swift */,
 				14B2BA3A266EA44B001D1007 /* DetailViewController.swift */,
-				14B2BA3C266FC006001D1007 /* MovieScrollCell.swift */,
-				14B2BA3E266FDB32001D1007 /* MovieCollectionViewCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

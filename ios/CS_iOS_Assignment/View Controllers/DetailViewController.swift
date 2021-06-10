@@ -11,7 +11,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var overviewText: UILabel!
+    @IBOutlet weak var overviewText: UITextView!
     @IBOutlet weak var runTime: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var movieTitle: UILabel!

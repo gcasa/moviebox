@@ -10,12 +10,10 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var jsonArray: [Any] = []
     var configDict: [String : Any] = [:]
+    let movieService = MovieService.sharedMovieService
+    var selectedMovieId : Int!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    let movieService = MovieService.sharedMovieService
-    
     @IBOutlet weak var moviesTableView: UITableView!
     
     override func viewDidLoad() {
@@ -85,16 +83,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "MovieDetail", sender: self)
+        let indexPath = self.tableView.indexPathForSelectedRow
+        let cell = tableView.cellForRow(at: indexPath!) as! MovieCell
+        openDetailWith(movieId: cell.movieId)
     }
     
     // Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller : DetailViewController = segue.destination as! DetailViewController
-        let indexPath = self.tableView.indexPathForSelectedRow
-        let cell = tableView.cellForRow(at: indexPath!) as! MovieCell
-        
-        controller.movieId = cell.movieId
+        controller.movieId = selectedMovieId
     }
-
+    
+    func openDetailWith(movieId : Int) {
+        selectedMovieId = movieId
+        self.performSegue(withIdentifier: "MovieDetail", sender: self)
+    }
 }
