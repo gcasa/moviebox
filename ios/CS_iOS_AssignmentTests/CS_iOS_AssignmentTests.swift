@@ -22,12 +22,20 @@ class CS_iOS_AssignmentTests: XCTestCase {
     }
 
     func testMostPopularMovieList() {
+        movieService.fetchMovies { jsonArray in
+            XCTAssertNotNil(jsonArray)
+        }
     }
 
     func testNowPlayingMovieList() {
+        movieService.fetchPopularMovies(page: 0) { jsonArray in
+            XCTAssertNotNil(jsonArray)
+        }
     }
 
     func testConfiguration() {
+        movieService.fetchConfiguration {
+            XCTAssertNotNil(movieService.config)
+        }
     }
-
 }
