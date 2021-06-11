@@ -24,18 +24,26 @@ class CS_iOS_AssignmentTests: XCTestCase {
     func testMostPopularMovieList() {
         movieService.fetchMovies { jsonArray in
             XCTAssertNotNil(jsonArray)
+            let movieDictionary = jsonArray?.first as! [String:Any]
+            let title = movieDictionary["title"] as? String
+            XCTAssertNotNil(title)
         }
     }
 
     func testNowPlayingMovieList() {
         movieService.fetchPopularMovies(page: 0) { jsonArray in
             XCTAssertNotNil(jsonArray)
+            let movieDictionary = jsonArray?.first as! [String:Any]
+            let title = movieDictionary["title"] as? String
+            XCTAssertNotNil(title)
         }
     }
 
     func testConfiguration() {
         movieService.fetchConfiguration {
             XCTAssertNotNil(movieService.config)
+            let baseUrl = movieService.baseUrl()
+            XCTAssertNotNil(baseUrl)
         }
     }
 }
