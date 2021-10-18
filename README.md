@@ -1,14 +1,6 @@
 # Mobile Assignment CS
 This is a placeholder README file with the instructions for the assignment. We expect you to build your own README file.
 
-## Delivering the code
-* Fork this repo and select the access level as PRIVATE. This is very important. **[Check how to do it here](https://docs.gitlab.com/ee////user/project/working_with_projects.html#fork-a-project)**
-* Do NOT open a PR to this repository.
-* Add the user **m-cs-recruitment@backbase.com** as `Reporter` member **[Check how to do it here](https://docs.gitlab.com/ee/user/project/members/#add-a-user)**
-* Once you are done with the development, send an e-mail to **m-cs-recruitment@backbase.com** AND CC the recruiter who is in touch with you with your info and repo. This helps us to keep track of your progress and move with the process faster.
-
-Please remember to work with small commits, it help us to see how you improve your code :)
-
 ## Instructions
 
 You should build an application using the TheMovieDB API. We have provided an initial application that will help you with fast-tracking app development. It contains the following:
